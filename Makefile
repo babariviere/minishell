@@ -1,6 +1,6 @@
 NAME=minishell
 NAME_DBG=minishelldbg
-SRC_NAME=main.c shell.c command.c
+SRC_NAME=main.c shell.c parse_command.c interpret.c
 SRC=$(addprefix src/, $(SRC_NAME))
 OBJ=$(patsubst src/%.c, obj/%.o, $(SRC))
 OBJ_DBG=$(patsubst src/%.c, obj_dbg/%.o, $(SRC))
