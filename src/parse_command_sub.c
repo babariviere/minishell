@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 10:34:30 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/12 11:37:41 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/12 12:23:43 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,19 @@ char	*parse_ident(const char *str, size_t *idx)
 {
 	char	*res;
 	char	*tmp;
+	char	*tmp_semi;
 	size_t	len;
 
 	res = 0;
 	if (str[*idx] == '\'' || str[*idx] == '\"')
 		tmp = ft_strchr_esc(str + (*idx + 1), str[*idx]);
 	else
+	{
 		tmp = ft_strchr_esc(str + (*idx), ' ');
+		tmp_semi = ft_strchr(str + (*idx), ';');
+		if (tmp_semi && tmp_semi < tmp)
+			tmp = tmp_semi;
+	}
 	if (tmp)
 		len = tmp - (str + *idx);
 	else
@@ -30,6 +36,8 @@ char	*parse_ident(const char *str, size_t *idx)
 	res = ft_strnew(len);
 	ft_strncpy(res, str + *idx, len);
 	*idx += len;
+	if (tmp && *tmp == ';')
+		*idx += 1;
 	return (res);
 }
 
@@ -76,6 +84,17 @@ char	**parse_envs(const char *str, size_t *idx)
 		size += sizeof(char *);
 		sidx++;
 	}
+	return (res);
+}
+
+char	*parse_cmd(const char *str, size_t *idx)
+{
+	char	*res;
+	while (str[*idx] && ft_iswhitespace(str[*idx]))
+		*idx += 1;
+	res = parse_ident(str, idx);
+	while (str[*idx] && ft_iswhitespace(str[*idx]))
+		*idx += 1;
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:07:01 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/12 11:08:51 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/12 12:09:25 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,33 @@ static size_t	command_size(const char *str)
 	return (count);
 }
 
-t_command		*parse_command(const char *str, char **envp, char **epath)
+t_command		*parse_command(const char *str, const char **envp)
 {
 	t_command	*cmd;
-	(void)str;
-	(void)epath;
-	(void)envp;
+	char		**nenvp;
+	char		**tmp;
+	char		*epath;
+	size_t		idx;
 
-	cmd = 0;
+	if ((cmd = ft_memalloc(sizeof(t_command))) == 0)
+		return (0);
+	idx = 0;
+	nenvp = ft_env_init(envp);
+	tmp = parse_envs(str, &idx);
+	while (tmp && *tmp)
+	{
+		ft_env_set_ent(&nenvp, *tmp);
+		tmp++;
+	}
+	epath = ft_env_get(nenvp, "PATH");
+	cmd->bin = cmd_bin_path(parse_cmd(str, &idx), epath);
+	if (epath)
+		free(epath);
+	cmd->av = parse_args(str, &idx);
 	return (cmd);
 }
 
-t_command		**parse_commands(const char *str, char **envp, char **epath)
+t_command		**parse_commands(const char *str, const char **envp)
 {
 	t_command	**cmds;
 	char		*tmp;
@@ -64,7 +79,7 @@ t_command		**parse_commands(const char *str, char **envp, char **epath)
 	tmp = (char *)str;
 	while (idx < len)
 	{
-		cmds[idx++] = parse_command(tmp, envp, epath);
+		cmds[idx++] = parse_command(tmp, envp);
 		if (tmp)
 			tmp = ft_strchr(tmp, ';');
 		if (tmp != 0)
