@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 10:34:30 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/12 12:46:33 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/12 16:54:04 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ char	*parse_ident(const char *str, size_t *idx)
 	if (str[*idx] == '\'' || str[*idx] == '\"')
 	{
 		tmp = ft_strchr_esc(str + (*idx + 1), str[*idx]);
-		if (tmp)
-			tmp++;
+		*idx += 1;
 	}
 	else
 	{
@@ -40,7 +39,7 @@ char	*parse_ident(const char *str, size_t *idx)
 	res = ft_strnew(len);
 	ft_strncpy(res, str + *idx, len);
 	*idx += len;
-	if (tmp && *tmp == ';')
+	if (tmp && (*tmp == ';' || *tmp == '\'' || *tmp == '\"'))
 		*idx += 1;
 	return (res);
 }
@@ -109,7 +108,7 @@ char	**parse_args(const char *str, size_t *idx)
 	size_t	sidx;
 	size_t	size;
 
-	if ((res = malloc(sizeof(char *) * 1)) == 0)
+	if ((res = malloc(sizeof(char *))) == 0)
 		return (0);
 	res[0] = 0;
 	sidx = 0;
