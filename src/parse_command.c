@@ -6,33 +6,22 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:07:01 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/12 12:09:25 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/12 12:48:49 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-static size_t	command_size(const char *str)
+static size_t	command_count(const char *str)
 {
-	size_t		count;
-	size_t		level;
+	size_t	count;
 
 	count = 1;
-	level = 0;
 	while (*str)
 	{
 		if (*str == ';')
-			return (count);
-		if (*str == '\'' || *str == '\"')
-			str = ft_strchr_esc(str, *str);
-		if (ft_iswhitespace(*str))
-		{
 			count++;
-			while (ft_iswhitespace(*str))
-				str++;
-		}
-		else
-			str++;
+		str++;
 	}
 	return (count);
 }
@@ -44,6 +33,7 @@ t_command		*parse_command(const char *str, const char **envp)
 	char		**tmp;
 	char		*epath;
 	size_t		idx;
+	size_t		fidx;
 
 	if ((cmd = ft_memalloc(sizeof(t_command))) == 0)
 		return (0);
@@ -56,7 +46,8 @@ t_command		*parse_command(const char *str, const char **envp)
 		tmp++;
 	}
 	epath = ft_env_get(nenvp, "PATH");
-	cmd->bin = cmd_bin_path(parse_cmd(str, &idx), epath);
+	fidx = idx;
+	cmd->bin = cmd_bin_path(parse_cmd(str, &fidx), epath);
 	if (epath)
 		free(epath);
 	cmd->av = parse_args(str, &idx);
@@ -72,12 +63,12 @@ t_command		**parse_commands(const char *str, const char **envp)
 
 	if (str == 0)
 		return (0);
-	len = command_size(str);
+	len = command_count(str);
 	if ((cmds = ft_memalloc(sizeof(t_command *) * (len + 1))) == 0)
 		return (0);
 	idx = 0;
 	tmp = (char *)str;
-	while (idx < len)
+	while (tmp && idx < len)
 	{
 		cmds[idx++] = parse_command(tmp, envp);
 		if (tmp)
@@ -85,5 +76,6 @@ t_command		**parse_commands(const char *str, const char **envp)
 		if (tmp != 0)
 			tmp += 1;
 	}
+	cmds[idx] = 0;
 	return (cmds);
 }
