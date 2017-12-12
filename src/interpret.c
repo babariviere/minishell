@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:57:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/12 17:14:57 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/12 17:22:20 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		interpret(t_command *command)
 		return ;
 	if (command->bin == 0)
 	{
-		ft_putstr("minishell: command not found: ");
+		ft_putstr("command not found: ");
 		ft_putendl(command->av[0]);
 		return ;
 	}
