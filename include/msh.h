@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:51:45 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/12 11:16:34 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/12 11:34:45 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ void		shell_loop(char **envp, char **epath);
 */
 char		*parse_ident(const char *str, size_t *idx);
 char		**parse_envs(const char *str, size_t *idx);
+char		**parse_args(const char *str, size_t *idx);
 
 #endif

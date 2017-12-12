@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:02:00 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/12 11:20:54 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/12 11:34:33 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void		shell_loop(char **envp, char **epath)
 			break ;
 		}
 		ft_print_tab((const char **)parse_envs(line, &idx));
+		ft_print_tab((const char **)parse_args(line, &idx));
 		cmds = parse_commands(line, envp, epath);
 		//if (ft_strcmp(cmd->content, "exit") == 0)
 		//	break ;
