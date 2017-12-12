@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:07:01 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/11 17:19:44 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/12 11:08:51 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static size_t	command_size(const char *str)
 		if (*str == ';')
 			return (count);
 		if (*str == '\'' || *str == '\"')
-			str += ft_skip_until(str, *str);
+			str = ft_strchr_esc(str, *str);
 		if (ft_iswhitespace(*str))
 		{
 			count++;
@@ -37,38 +37,26 @@ static size_t	command_size(const char *str)
 	return (count);
 }
 
-t_command		*parse_command(const char *str)
+t_command		*parse_command(const char *str, char **envp, char **epath)
 {
-	char		*tmp;
-	size_t		begin;
-	size_t		end;
+	t_command	*cmd;
+	(void)str;
+	(void)epath;
+	(void)envp;
 
-	begin = 0;
-	end = 0;
-	while (str[end])
-	{
-		if (ft_iswhitespace(str[end]))
-		{
-			tmp = ft_strsub(str, begin, end);
-			begin = end;
-			while (ft_iswhitespace(str[end]) && str[end + 1])
-				end++;
-			// TODO: create function to check if it's env variable
-			// TODO: create function to concat env
-		}
-
-		end++;
-	}
-	return ((char *)str);
+	cmd = 0;
+	return (cmd);
 }
 
-t_command		**parse_commands(const char *str)
+t_command		**parse_commands(const char *str, char **envp, char **epath)
 {
 	t_command	**cmds;
 	char		*tmp;
 	size_t		idx;
 	size_t		len;
 
+	if (str == 0)
+		return (0);
 	len = command_size(str);
 	if ((cmds = ft_memalloc(sizeof(t_command *) * (len + 1))) == 0)
 		return (0);
@@ -76,8 +64,9 @@ t_command		**parse_commands(const char *str)
 	tmp = (char *)str;
 	while (idx < len)
 	{
-		cmds[idx++] = parse_command(tmp);
-		tmp = ft_strchr(tmp, ';');
+		cmds[idx++] = parse_command(tmp, envp, epath);
+		if (tmp)
+			tmp = ft_strchr(tmp, ';');
 		if (tmp != 0)
 			tmp += 1;
 	}
