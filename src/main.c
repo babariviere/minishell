@@ -6,12 +6,11 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:51:31 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/13 09:01:25 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/13 10:48:58 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
-
 
 int		main(int ac, char **av, char **envp)
 {

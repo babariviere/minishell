@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:53:05 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/13 08:55:19 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/13 10:49:08 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*file_exists(const char *path, const char *file)
 	return (tmp);
 }
 
-char	*cmd_bin_path(char *cmd, const char *epath)
+char		*cmd_bin_path(char *cmd, const char *epath)
 {
 	size_t	beg;
 	size_t	end;
