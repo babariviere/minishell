@@ -6,13 +6,13 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:02:00 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/12 17:16:52 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/13 08:58:38 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-void		shell_loop(char **envp)
+void		shell_loop(void)
 {
 	t_command	**cmds;
 	char		*line;
@@ -26,7 +26,7 @@ void		shell_loop(char **envp)
 		ft_putstr("> ");
 		if (ft_gnl(0, &line) <= 0)
 			exit(0);
-		cmds = parse_commands(line, (const char **)envp);
+		cmds = parse_commands(line);
 		while (cmds[cmd_idx])
 		{
 			if (cmds[cmd_idx]->av[0] == 0)

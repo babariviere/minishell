@@ -6,23 +6,80 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 14:24:41 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/12 14:33:35 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/13 09:30:17 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-int		builtin_echo(int ac, char **av, char **envp)
+static size_t	echo_env(char *str, char **envp)
+{
+	size_t	idx;
+	char	*tmp;
+	char	*env;
+
+	idx = 0;
+	if (str[idx++] != '$')
+		return (0);
+	while (str[idx] && (ft_isalnum(str[idx]) || str[idx] == '_'))
+		idx++;
+	tmp = ft_strsub(str, 1, idx - 1);
+	if (tmp)
+	{
+		env = ft_env_get(envp, tmp);
+		if (env == 0)
+			return (idx);
+		ft_putstr(env);
+		free(tmp);
+	}
+	return (idx);
+}
+
+static void		echo_str(char *str, char **envp)
+{
+	size_t	beg;
+	size_t	end;
+	int		prev_anti;
+
+	prev_anti = 0;
+	beg = 0;
+	end = 0;
+	while (str[end])
+	{
+		// TODO: check if prev_anti was true and print only one antislash
+		if (str[end] == '\\' && prev_anti == 0)
+		{
+			write(1, str + beg, end - beg - 1);
+			beg = end + 1;
+			prev_anti = 1;
+		}
+		else if (str[end] == '$' && prev_anti == 0)
+		{
+			write(1, str + beg, end - beg);
+			beg = end + echo_env(str + end, envp);
+			end = beg;
+		}
+		else if (prev_anti)
+		{
+			ft_putchar(str[end]);
+			beg = end + 1;
+			prev_anti = 0;
+		}
+		end++;
+	}
+	write(1, str + beg, end - beg);
+}
+
+int				builtin_echo(int ac, char **av, char **envp)
 {
 	int		idx;
 
-	(void)envp;
 	idx = 1;
 	while (idx < ac)
 	{
 		if (idx > 1)
 			ft_putchar(' ');
-		ft_putstr(av[idx]);
+		echo_str(av[idx], envp);
 		idx++;
 	}
 	ft_putchar('\n');

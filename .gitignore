@@ -1,4 +1,6 @@
 obj
 obj_dbg
+obj_san
 minishell
 minishelldbg
+minishellsan

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/11 12:07:01 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/12 17:09:59 by briviere         ###   ########.fr       */
+/*   Created: 2017/12/13 09:06:34 by briviere          #+#    #+#             */
+/*   Updated: 2017/12/13 09:06:44 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static size_t	command_count(const char *str)
 	return (count);
 }
 
-t_command		*parse_command(const char *str, const char **envp)
+t_command		*parse_command(const char *str)
 {
 	t_command	*cmd;
 	char		**tmp;
@@ -37,7 +37,7 @@ t_command		*parse_command(const char *str, const char **envp)
 	if ((cmd = ft_memalloc(sizeof(t_command))) == 0)
 		return (0);
 	idx = 0;
-	cmd->env = ft_env_init(envp);
+	cmd->env = ft_env_init((const char **)g_envp);
 	tmp = parse_envs(str, &idx);
 	while (tmp && *tmp)
 	{
@@ -53,7 +53,7 @@ t_command		*parse_command(const char *str, const char **envp)
 	return (cmd);
 }
 
-t_command		**parse_commands(const char *str, const char **envp)
+t_command		**parse_commands(const char *str)
 {
 	t_command	**cmds;
 	char		*tmp;
@@ -69,7 +69,7 @@ t_command		**parse_commands(const char *str, const char **envp)
 	tmp = (char *)str;
 	while (tmp && idx < len)
 	{
-		cmds[idx++] = parse_command(tmp, envp);
+		cmds[idx++] = parse_command(tmp);
 		if (tmp)
 			tmp = ft_strchr(tmp, ';');
 		if (tmp)
