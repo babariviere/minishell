@@ -2,7 +2,8 @@ NAME=minishell
 NAME_DBG=minishelldbg
 NAME_SAN=minishellsan
 SRC_NAME=main.c shell.c parse_command.c interpret.c parse_command_sub.c command.c\
-		 builtins/mod.c builtins/echo.c builtins/exit.c builtins/cd.c
+		 builtins/mod.c builtins/echo.c builtins/exit.c builtins/cd.c\
+		 builtins/setenv.c builtins/unsetenv.c
 SRC=$(addprefix src/, $(SRC_NAME))
 OBJ=$(patsubst src/%.c, obj/%.o, $(SRC))
 OBJ_DBG=$(patsubst src/%.c, obj_dbg/%.o, $(SRC))
@@ -11,13 +12,14 @@ CC=clang
 LIBS=-Llibft/ -lft
 LIBS_DBG=-Llibft/ -lftdbg
 CFLAGS=-Wall -Werror -Wextra -Iinclude -Ilibft/include
+OPTI=-O3
 SANFLAGS=-fsanitize=address
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C libft/ all
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBS)
+	$(CC) $(CFLAGS) $(OPTI) -o $(NAME) $(OBJ) $(LIBS)
 
 $(NAME_DBG): $(OBJ_DBG)
 	@make -C libft/ debug
@@ -29,7 +31,7 @@ $(NAME_SAN): $(OBJ_SAN)
 
 obj/%.o: src/%.c
 	@mkdir -p `dirname $@`
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) $(OPTI) -c -o $@ $<
 
 obj_dbg/%.o: src/%.c
 	@mkdir -p `dirname $@`

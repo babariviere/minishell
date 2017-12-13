@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 09:06:34 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/13 09:06:44 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/13 09:55:51 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_command		*parse_command(const char *str)
 	tmp = parse_envs(str, &idx);
 	while (tmp && *tmp)
 	{
-		ft_env_set_ent(&cmd->env, *tmp);
+		ft_env_set_ent(&cmd->env, *tmp, 1);
 		tmp++;
 	}
 	epath = ft_env_get(cmd->env, "PATH");

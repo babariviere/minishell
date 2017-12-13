@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:51:45 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/13 09:11:27 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/13 09:55:35 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int					get_builtin(char *bin);
 int					builtin_echo(int ac, char **av, char **envp);
 int					builtin_exit(int ac, char **av, char **envp);
 int					builtin_cd(int ac, char **av, char **envp);
+int					builtin_setenv(int ac, char **av, char **envp);
+int					builtin_unsetenv(int ac, char **av, char **envp);
 
 typedef struct		s_builtin_fn {
 	char	name[255];
@@ -61,7 +63,10 @@ typedef struct		s_builtin_fn {
 static t_builtin_fn	g_builtins[] = {
 	{"echo", builtin_echo},
 	{"exit", builtin_exit},
-	{"cd", builtin_cd}
+	{"cd", builtin_cd},
+	{"env", builtin_setenv},
+	{"setenv", builtin_setenv},
+	{"unsetenv", builtin_unsetenv}
 };
 
 #endif
