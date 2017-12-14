@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 14:24:41 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/13 09:30:17 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/14 14:17:26 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ static size_t	echo_env(char *str, char **envp)
 	idx = 0;
 	if (str[idx++] != '$')
 		return (0);
-	while (str[idx] && (ft_isalnum(str[idx]) || str[idx] == '_'))
+	if (str[idx] != '?')
+	{
+		while (str[idx] && (ft_isalnum(str[idx]) || str[idx] == '_'))
+			idx++;
+	}
+	else
 		idx++;
 	tmp = ft_strsub(str, 1, idx - 1);
 	if (tmp)
@@ -46,7 +51,6 @@ static void		echo_str(char *str, char **envp)
 	end = 0;
 	while (str[end])
 	{
-		// TODO: check if prev_anti was true and print only one antislash
 		if (str[end] == '\\' && prev_anti == 0)
 		{
 			write(1, str + beg, end - beg - 1);
