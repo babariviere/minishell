@@ -2,6 +2,7 @@ NAME=minishell
 NAME_DBG=minishelldbg
 NAME_SAN=minishellsan
 SRC_NAME=main.c shell.c parse_command.c interpret.c parse_command_sub.c command.c\
+		 parse_ident.c\
 		 builtins/mod.c builtins/echo.c builtins/exit.c builtins/cd.c\
 		 builtins/setenv.c builtins/unsetenv.c
 SRC=$(addprefix src/, $(SRC_NAME))
