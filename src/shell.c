@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:02:00 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/14 16:09:27 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/14 17:25:52 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	interpret_cmds(t_command **cmds)
 			continue ;
 		}
 		interpret(cmds[cmd_idx]);
-		free(cmds[cmd_idx]);
+		free_command(cmds + cmd_idx);
 		cmd_idx++;
 	}
 }

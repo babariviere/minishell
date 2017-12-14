@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:53:05 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/14 16:07:02 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/14 17:43:08 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,31 @@ static char	*cmd_bin_path_sub(char *cmd, const char *epath, size_t beg,
 		return (res);
 	}
 	return (0);
+}
+
+void		free_command(t_command **cmdptr)
+{
+	t_command	*cmd;
+	size_t		idx;
+
+	cmd = *cmdptr;
+	if (cmd->env)
+	{
+		idx = 0;
+		while (cmd->env[idx])
+			free(cmd->env + (idx++));
+		free(&cmd->env);
+	}
+	if (cmd->bin)
+		free(cmd->bin);
+	if (cmd->av)
+	{
+		idx = 0;
+		while (cmd->av[idx])
+			free(cmd->av + (idx++));
+		free(cmd->av);
+	}
+	ft_memdel((void **)cmdptr);
 }
 
 char		*cmd_bin_path(char *cmd, const char *epath)

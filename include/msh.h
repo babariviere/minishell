@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:51:45 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/14 16:28:30 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/14 17:36:33 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void				shell_loop(void);
 */
 char				*cmd_bin_path(char *cmd, const char *epath);
 void				interpret(t_command *cmd);
+void				free_command(t_command **cmd);
 
 /*
 ** PARSING
