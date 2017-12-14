@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 14:24:41 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/14 14:17:26 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/14 16:03:18 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,29 @@ static size_t	echo_env(char *str, char **envp)
 	return (idx);
 }
 
+static void		echo_str_dollar(char *str, char **envp, size_t *begptr,
+		size_t *endptr)
+{
+	size_t	beg;
+	size_t	end;
+
+	beg = *begptr;
+	end = *endptr;
+	write(1, str + beg, end - beg);
+	beg = end + echo_env(str + end, envp);
+	end = beg;
+	*begptr = beg;
+	*endptr = end;
+}
+
+static void		echo_str_antislash(char *str, size_t *beg, size_t *end,
+		int *prev_anti)
+{
+	write(1, str + *beg, *end - *beg - 1);
+	*beg = *end + 1;
+	*prev_anti = 1;
+}
+
 static void		echo_str(char *str, char **envp)
 {
 	size_t	beg;
@@ -52,17 +75,9 @@ static void		echo_str(char *str, char **envp)
 	while (str[end])
 	{
 		if (str[end] == '\\' && prev_anti == 0)
-		{
-			write(1, str + beg, end - beg - 1);
-			beg = end + 1;
-			prev_anti = 1;
-		}
+			echo_str_antislash(str, &beg, &end, &prev_anti);
 		else if (str[end] == '$' && prev_anti == 0)
-		{
-			write(1, str + beg, end - beg);
-			beg = end + echo_env(str + end, envp);
-			end = beg;
-		}
+			echo_str_dollar(str, envp, &beg, &end);
 		else if (prev_anti)
 		{
 			ft_putchar(str[end]);

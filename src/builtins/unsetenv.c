@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 09:52:52 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/13 09:56:23 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/14 16:29:27 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		builtin_unsetenv(int ac, char **av, char **envp)
 	}
 	while (idx < ac)
 	{
-		ft_env_rm(&g_envp, av[idx]);
+		ft_env_rm(&environ, av[idx]);
 		idx++;
 	}
 	return (0);

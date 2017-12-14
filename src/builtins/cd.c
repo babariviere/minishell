@@ -6,11 +6,31 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:00:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/14 09:35:42 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/14 16:00:15 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+
+static int	check_err(char *path)
+{
+	struct stat	st;
+
+	if (stat(path, &st) != 0)
+	{
+		ft_putstr("cd: no such file or directory: ");
+		ft_putendl(path);
+		return (0);
+	}
+	if ((st.st_mode & S_IFDIR) == 0)
+	{
+		ft_putstr("cd: ");
+		ft_putstr(path);
+		ft_putendl(": not a directory");
+		return (0);
+	}
+	return (1);
+}
 
 static char	*get_home(char **envp)
 {
@@ -43,27 +63,6 @@ static char	*get_path(char *arg, char **envp)
 	else
 		path = ft_strdup(arg);
 	return (path);
-}
-
-static int	check_err(char *path)
-{
-
-	struct stat	st;
-
-	if (stat(path, &st) != 0)
-	{
-		ft_putstr("cd: no such file or directory: ");
-		ft_putendl(path);
-		return (0);
-	}
-	if ((st.st_mode & S_IFDIR) == 0)
-	{
-		ft_putstr("cd: ");
-		ft_putstr(path);
-		ft_putendl(": not a directory");
-		return (0);
-	}
-	return (1);
 }
 
 int			builtin_cd(int ac, char **av, char **envp)

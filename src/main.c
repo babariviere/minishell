@@ -6,18 +6,17 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:51:31 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/13 10:48:58 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/14 16:28:49 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-int		main(int ac, char **av, char **envp)
+int		main(int ac, char **av)
 {
 	(void)ac;
 	(void)av;
-
-	g_envp = ft_env_init((const char **)envp);
+	environ = ft_env_init((const char **)environ);
 	shell_loop();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:57:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/14 11:40:09 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/14 16:29:11 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		interpret(t_command *command)
 	{
 		g_builtins[idx].ptr(ft_tablen(command->av, sizeof(char *)),
 				command->av, command->env);
-		ft_env_set(&g_envp, "?", "0", 1);
+		ft_env_set(&environ, "?", "0", 1);
 		return ;
 	}
 	status = 0;
@@ -64,8 +64,10 @@ void		interpret(t_command *command)
 	if (pid == 0)
 		status = execve(command->bin, command->av, command->env);
 	else
+	{
 		waitpid(pid, &status, 0);
-	st = ft_itoa(status);
-	ft_env_set(&g_envp, "?", st, 1);
-	free(st);
+		st = ft_itoa(status);
+		ft_env_set(&environ, "?", st, 1);
+		free(st);
+	}
 }

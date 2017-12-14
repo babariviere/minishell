@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 09:06:34 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/13 09:55:51 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/14 16:29:02 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_command		*parse_command(const char *str)
 	if ((cmd = ft_memalloc(sizeof(t_command))) == 0)
 		return (0);
 	idx = 0;
-	cmd->env = ft_env_init((const char **)g_envp);
+	cmd->env = ft_env_init((const char **)environ);
 	tmp = parse_envs(str, &idx);
 	while (tmp && *tmp)
 	{

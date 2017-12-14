@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 10:34:30 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/12 16:54:04 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/14 16:08:02 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ char	**parse_envs(const char *str, size_t *idx)
 char	*parse_cmd(const char *str, size_t *idx)
 {
 	char	*res;
+
 	while (str[*idx] && ft_iswhitespace(str[*idx]))
 		*idx += 1;
 	res = parse_ident(str, idx);
