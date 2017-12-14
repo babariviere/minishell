@@ -6,11 +6,41 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:57:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/12 17:22:20 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/14 09:43:09 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+
+static int	has_perm(struct stat st)
+{
+	return ((st.st_mode & S_IXUSR) || (st.st_mode & S_IXGRP) ||
+			(st.st_mode & S_IXOTH));
+}
+
+static int	check_err(t_command *command)
+{
+	struct stat	st;
+
+	if (command == 0)
+		return (0);
+	if (command->bin == 0)
+	{
+		ft_putstr("command not found: ");
+		ft_putendl(command->av[0]);
+		return (0);
+	}
+	if (get_builtin(command->bin) > 0)
+		return (1);
+	stat(command->bin, &st);
+	if (has_perm(st) == 0)
+	{
+		ft_putstr(command->bin);
+		ft_putendl(": permission denied");
+		return (0);
+	}
+	return (1);
+}
 
 void		interpret(t_command *command)
 {
@@ -18,14 +48,8 @@ void		interpret(t_command *command)
 	int		status;
 	int		idx;
 
-	if (command == 0)
+	if (check_err(command) == 0)
 		return ;
-	if (command->bin == 0)
-	{
-		ft_putstr("command not found: ");
-		ft_putendl(command->av[0]);
-		return ;
-	}
 	if ((idx = get_builtin(command->bin)) >= 0)
 	{
 		g_builtins[idx].ptr(ft_tablen(command->av, sizeof(char *)),
