@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:02:00 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/13 08:58:38 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/14 09:37:28 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void		shell_loop(void)
 		cmd_idx = 0;
 		ft_putstr("> ");
 		if (ft_gnl(0, &line) <= 0)
+		{
+			ft_putendl("exit");
 			exit(0);
+		}
 		cmds = parse_commands(line);
 		while (cmds[cmd_idx])
 		{
