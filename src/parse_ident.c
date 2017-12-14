@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 16:58:20 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/14 17:19:46 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/14 17:21:15 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,3 @@ char		*parse_ident(const char *str, size_t *idx)
 		*idx += 1;
 	return (res);
 }
-
