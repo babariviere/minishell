@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 10:34:30 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/14 17:14:51 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/15 11:12:20 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,12 @@ char	**parse_envs(const char *str, size_t *idx)
 	size_t	sidx;
 	size_t	size;
 
-	if ((res = malloc(sizeof(char *) * 1)) == 0)
-		return (0);
-	res[0] = 0;
+	res = 0;
 	sidx = 0;
-	size = sizeof(char *);
+	size = 0;
 	while ((tmp = parse_env(str, idx)))
 	{
-		res = ft_realloc(res, size, size + sizeof(char *));
+		res = ft_realloc(res, size, (size + sizeof(char *) * 2));
 		res[sidx] = tmp;
 		res[sidx + 1] = 0;
 		tmp = 0;
@@ -77,14 +75,12 @@ char	**parse_args(const char *str, size_t *idx)
 	size_t	sidx;
 	size_t	size;
 
-	if ((res = malloc(sizeof(char *))) == 0)
-		return (0);
-	res[0] = 0;
+	res = 0;
 	sidx = 0;
-	size = sizeof(char *);
+	size = 0;
 	while (str[*idx] && (tmp = parse_ident(str, idx)))
 	{
-		res = ft_realloc(res, size, size + sizeof(char *));
+		res = ft_realloc(res, size, size + (sizeof(char *) * 2));
 		res[sidx] = tmp;
 		tmp = 0;
 		while (str[*idx] && ft_iswhitespace(str[*idx]))

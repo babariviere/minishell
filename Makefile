@@ -12,9 +12,10 @@ OBJ_SAN=$(patsubst src/%.c, obj_san/%.o, $(SRC))
 CC=clang
 LIBS=-Llibft/ -lft
 LIBS_DBG=-Llibft/ -lftdbg
+LIBS_SAN=-Llibft/ -lftsan
 CFLAGS=-Wall -Werror -Wextra -Iinclude -Ilibft/include
 OPTI=-O3
-SANFLAGS=-fsanitize=address
+SANFLAGS=-fsanitize=address -g
 
 all: $(NAME)
 
@@ -27,8 +28,8 @@ $(NAME_DBG): $(OBJ_DBG)
 	$(CC) $(CFLAGS) -g -o $(NAME_DBG) $(OBJ_DBG) $(LIBS_DBG)
 
 $(NAME_SAN): $(OBJ_SAN)
-	@make -C libft/ all
-	$(CC) $(CFLAGS) $(SANFLAGS) -o $(NAME_SAN) $(OBJ_SAN) $(LIBS)
+	@make SANFLAGS="$(SANFLAGS)" -C libft/ san
+	$(CC) $(CFLAGS) $(SANFLAGS) -o $(NAME_SAN) $(OBJ_SAN) $(LIBS_SAN)
 
 obj/%.o: src/%.c
 	@mkdir -p `dirname $@`
@@ -46,9 +47,9 @@ debug: $(NAME_DBG)
 	@lldb $(NAME_DBG)
 
 leaks: $(NAME_DBG)
-	@valgrind --leak-check=full --track-origins=yes $(NAME_DBG) 1> /dev/null
+	@MallocStackLogging=1 $(NAME_DBG)
 
-sanitize: $(NAME_SAN)
+san: $(NAME_SAN)
 
 norme: $(SRC)
 	@norminette $(SRC)
