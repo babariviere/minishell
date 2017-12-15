@@ -6,29 +6,13 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 09:50:14 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/14 16:29:20 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/15 15:09:32 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-static void	print_env(char **envp)
-{
-	size_t	idx;
-
-	idx = 0;
-	while (envp[idx])
-	{
-		if (envp[idx][0] == '?' || envp[idx][0] == 0)
-		{
-			idx++;
-			continue ;
-		}
-		ft_putendl(envp[idx++]);
-	}
-}
-
-int			builtin_setenv(int ac, char **av, char **envp)
+int		builtin_setenv(int ac, char **av, char **envp)
 {
 	(void)envp;
 	if (ac == 1)

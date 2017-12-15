@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:51:45 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 12:21:29 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/15 15:09:20 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct		s_command {
 }					t_command;
 
 t_command			**parse_commands(const char *str);
+t_command			*parse_command(const char *str);
 void				shell_loop(void);
 
 /*
@@ -45,6 +46,7 @@ char				**parse_args(const char *str, size_t *idx);
 ** ENV
 */
 extern char			**environ;
+void				print_env(char **envp);
 
 /*
 ** BUILTINS
@@ -53,6 +55,7 @@ int					get_builtin(char *bin);
 int					builtin_echo(int ac, char **av, char **envp);
 int					builtin_exit(int ac, char **av, char **envp);
 int					builtin_cd(int ac, char **av, char **envp);
+int					builtin_env(int ac, char **av, char **envp);
 int					builtin_setenv(int ac, char **av, char **envp);
 int					builtin_unsetenv(int ac, char **av, char **envp);
 
@@ -65,7 +68,7 @@ static t_builtin_fn	g_builtins[] = {
 	{"echo", builtin_echo},
 	{"cd", builtin_cd},
 	{"exit", builtin_exit},
-	{"env", builtin_setenv},
+	{"env", builtin_env},
 	{"setenv", builtin_setenv},
 	{"unsetenv", builtin_unsetenv}
 };

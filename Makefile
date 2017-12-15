@@ -4,7 +4,7 @@ NAME_SAN=minishellsan
 SRC_NAME=main.c shell.c parse_command.c interpret.c parse_command_sub.c command.c\
 		 parse_ident.c\
 		 builtins/mod.c builtins/echo.c builtins/exit.c builtins/cd.c\
-		 builtins/setenv.c builtins/unsetenv.c
+		 builtins/setenv.c builtins/unsetenv.c builtins/env.c
 SRC=$(addprefix src/, $(SRC_NAME))
 OBJ=$(patsubst src/%.c, obj/%.o, $(SRC))
 OBJ_DBG=$(patsubst src/%.c, obj_dbg/%.o, $(SRC))

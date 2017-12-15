@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 14:24:41 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/14 16:03:18 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/15 15:23:11 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,13 @@ int				builtin_echo(int ac, char **av, char **envp)
 {
 	int		idx;
 
+	(void)envp;
 	idx = 1;
 	while (idx < ac)
 	{
 		if (idx > 1)
 			ft_putchar(' ');
-		echo_str(av[idx], envp);
+		echo_str(av[idx], environ);
 		idx++;
 	}
 	ft_putchar('\n');

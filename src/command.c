@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:53:05 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 13:02:59 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/15 15:01:38 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*file_exists(const char *path, const char *file)
 	char		*tmp;
 	struct stat	st;
 
-	tmp = ft_strjoin_sep(path, "/", file);
+	tmp = ft_strjoin_sep(path, '/', file);
 	if (lstat(tmp, &st) < 0)
 	{
 		free(tmp);
