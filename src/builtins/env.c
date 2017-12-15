@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 13:29:48 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 15:19:49 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/15 15:59:19 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int				builtin_env(int ac, char **av, char **envp)
 		print_env(environ);
 		return (0);
 	}
-	cmd_str = ft_strtab_join_sep((const char **)(av + 1), ' ');
+	cmd_str = ft_strtab_join_sep((av + 1), ' ');
 	cmd = parse_command(cmd_str);
 	res = 0;
 	if (cmd->bin == 0)
