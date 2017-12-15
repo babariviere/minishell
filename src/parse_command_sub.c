@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 10:34:30 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 11:12:20 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/15 13:10:31 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ char	**parse_args(const char *str, size_t *idx)
 	{
 		res = ft_realloc(res, size, size + (sizeof(char *) * 2));
 		res[sidx] = tmp;
+		res[sidx + 1] = 0;
 		tmp = 0;
 		while (str[*idx] && ft_iswhitespace(str[*idx]))
 			*idx += 1;
 		size += sizeof(char *);
 		sidx++;
 	}
-	res[sidx] = 0;
 	return (res);
 }

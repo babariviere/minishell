@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:57:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 12:42:58 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/15 13:01:14 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int			interpret(t_command *command)
 
 	if ((status = check_err(command)) != 0)
 		return (status);
+	if (command->bin == 0 || command->bin[0] == 0)
+		return (0);
 	if ((idx = get_builtin(command->bin)) >= 0)
 	{
 		status = g_builtins[idx].ptr(ft_tablen(command->av, sizeof(char *)),

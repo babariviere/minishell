@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:53:05 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 11:35:19 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/15 13:02:59 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ char		*cmd_bin_path(char *cmd, const char *epath)
 	size_t	end;
 	char	*res;
 
+	if (cmd == 0 || cmd[0] == 0)
+		return (cmd);
 	if (ft_strchr(cmd, '/'))
 		return (cmd);
 	if (get_builtin(cmd) >= 0)
