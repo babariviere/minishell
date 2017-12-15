@@ -6,18 +6,43 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:02:00 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 12:47:43 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/15 12:49:25 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-static void	interpret_cmds(t_command **cmds)
+static void	interpret_cmd(t_command **cmds, size_t cmd_idx)
 {
-	size_t		cmd_idx;
 	size_t		store;
 	int			res;
 	char		*res_str;
+
+	if (ft_strcmp(cmds[cmd_idx]->bin, "exit") == 0)
+	{
+		store = cmd_idx;
+		cmd_idx++;
+		while (cmds[cmd_idx])
+		{
+			free(cmds + cmd_idx);
+			cmd_idx++;
+		}
+		res = interpret(cmds[store]);
+		free_command(cmds + store);
+		free(cmds);
+		exit(res);
+	}
+	res = interpret(cmds[cmd_idx]);
+	res_str = ft_itoa(res);
+	ft_env_set_ent(&environ, res_str, 1);
+	free(res_str);
+	free_command(cmds + cmd_idx);
+	cmd_idx++;
+}
+
+static void	interpret_cmds(t_command **cmds)
+{
+	size_t		cmd_idx;
 
 	cmd_idx = 0;
 	while (cmds[cmd_idx])
@@ -28,26 +53,7 @@ static void	interpret_cmds(t_command **cmds)
 			free_command(cmds + cmd_idx);
 			continue ;
 		}
-		if (ft_strcmp(cmds[cmd_idx]->bin, "exit") == 0)
-		{
-			store = cmd_idx;
-			cmd_idx++;
-			while (cmds[cmd_idx])
-			{
-				free(cmds + cmd_idx);
-				cmd_idx++;
-			}
-			res = interpret(cmds[store]);
-			free_command(cmds + store);
-			free(cmds);
-			exit(res);
-		}
-		res = interpret(cmds[cmd_idx]);
-		res_str = ft_itoa(res);
-		ft_env_set_ent(&environ, res_str, 1);
-		free(res_str);
-		free_command(cmds + cmd_idx);
-		cmd_idx++;
+		interpret_cmd(cmds, cmd_idx);
 	}
 }
 
