@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:51:45 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/14 17:36:33 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/15 12:21:29 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void				shell_loop(void);
 ** COMMAND
 */
 char				*cmd_bin_path(char *cmd, const char *epath);
-void				interpret(t_command *cmd);
+int					interpret(t_command *cmd);
 void				free_command(t_command **cmd);
 
 /*
@@ -63,8 +63,8 @@ typedef struct		s_builtin_fn {
 
 static t_builtin_fn	g_builtins[] = {
 	{"echo", builtin_echo},
-	{"exit", builtin_exit},
 	{"cd", builtin_cd},
+	{"exit", builtin_exit},
 	{"env", builtin_setenv},
 	{"setenv", builtin_setenv},
 	{"unsetenv", builtin_unsetenv}

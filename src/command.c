@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:53:05 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 09:33:18 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/15 11:35:19 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ static char	*file_exists(const char *path, const char *file)
 	return (tmp);
 }
 
+void		free_command(t_command **cmdptr)
+{
+	t_command	*cmd;
+
+	cmd = *cmdptr;
+	if (cmd->env)
+		ft_tabdel((void ***)&cmd->env, sizeof(char *));
+	if (cmd->bin)
+		free(cmd->bin);
+	if (cmd->av)
+		ft_tabdel((void ***)&cmd->av, sizeof(char *));
+	ft_memdel((void **)cmdptr);
+}
+
 static char	*cmd_bin_path_sub(char *cmd, const char *epath, size_t beg,
 		size_t end)
 {
@@ -41,20 +55,6 @@ static char	*cmd_bin_path_sub(char *cmd, const char *epath, size_t beg,
 		return (res);
 	}
 	return (0);
-}
-
-void		free_command(t_command **cmdptr)
-{
-	t_command	*cmd;
-
-	cmd = *cmdptr;
-	if (cmd->env)
-		ft_tabdel((void ***)&cmd->env, sizeof(char *));
-	if (cmd->bin)
-		free(cmd->bin);
-	if (cmd->av)
-		ft_tabdel((void ***)&cmd->av, sizeof(char *));
-	ft_memdel((void **)cmdptr);
 }
 
 char		*cmd_bin_path(char *cmd, const char *epath)

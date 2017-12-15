@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:00:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/14 16:00:15 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/15 11:21:03 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static int	check_err(char *path)
 
 static char	*get_home(char **envp)
 {
-	char	*path;
 	char	*home;
 
 	home = ft_env_get(envp, "HOME");
@@ -43,8 +42,7 @@ static char	*get_home(char **envp)
 		ft_putendl("HOME is not defined");
 		return (0);
 	}
-	path = ft_strdup(home);
-	return (path);
+	return (home);
 }
 
 static char	*get_path(char *arg, char **envp)

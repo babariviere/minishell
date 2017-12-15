@@ -47,7 +47,7 @@ debug: $(NAME_DBG)
 	@lldb $(NAME_DBG)
 
 leaks: $(NAME_DBG)
-	@MallocStackLogging=1 $(NAME_DBG)
+	@MallocStackLogging=1 MallocStackLoggingNoCompact=1 MallocScribble=1 $(NAME_DBG)
 
 san: $(NAME_SAN)
 
