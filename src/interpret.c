@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:57:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 09:56:34 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 10:06:25 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	has_perm(struct stat st)
 static int	check_err(t_command *command)
 {
 	struct stat	st;
+	int			res;
 
 	if (command == 0)
 		return (0);
@@ -31,7 +32,12 @@ static int	check_err(t_command *command)
 	}
 	if (get_builtin(command->bin) >= 0)
 		return (0);
-	stat(command->bin, &st);
+	res = stat(command->bin, &st);
+	if (res < 0)
+	{
+		ft_putendl2_fd(command->bin, ": no such file or directory", 2);
+		return (127);
+	}
 	if (has_perm(st) == 0)
 	{
 		ft_putendl2_fd(command->bin, ": permission denied", 2);
