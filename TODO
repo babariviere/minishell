@@ -1,3 +1,0 @@
-[x] fix error when line starts with ;
-[x] make env builtin: env PATH=/bin ls
-[x] manage signal
