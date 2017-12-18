@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:02:00 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 13:23:23 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 09:16:51 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	interpret_cmd(t_command **cmds, size_t cmd_idx)
 	}
 	res = interpret(cmds[cmd_idx]);
 	res_str = ft_itoa(res);
-	ft_env_set_ent(&environ, res_str, 1);
+	ft_env_set(&environ, "?", res_str, 1);
 	free(res_str);
 	free_command(cmds + cmd_idx);
 }
@@ -46,15 +46,14 @@ static void	interpret_cmds(t_command **cmds)
 	cmd_idx = 0;
 	while (cmds[cmd_idx])
 	{
-		if (cmds[cmd_idx]->bin == 0)
-		{
-			free_command(cmds + cmd_idx);
-			cmd_idx++;
-			continue ;
-		}
 		interpret_cmd(cmds, cmd_idx);
 		cmd_idx++;
 	}
+}
+
+void		put_shell_prompt(void)
+{
+	ft_putstr("> ");
 }
 
 void		shell_loop(void)
@@ -66,7 +65,7 @@ void		shell_loop(void)
 	while (1)
 	{
 		idx = 0;
-		ft_putstr("> ");
+		put_shell_prompt();
 		if (ft_gnl(0, &line) <= 0)
 			exit(builtin_exit(1, (char *[]){(char *)"exit"}, environ));
 		cmds = parse_commands(line);

@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 10:34:30 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 13:10:31 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 09:14:10 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	**parse_envs(const char *str, size_t *idx)
 	return (res);
 }
 
-char	*parse_cmd(const char *str, size_t *idx)
+char	*parse_cmd_str(const char *str, size_t *idx)
 {
 	char	*res;
 

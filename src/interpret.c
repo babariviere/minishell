@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:57:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 13:01:14 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 08:56:18 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,15 @@ int			interpret(t_command *command)
 				command->av, command->env);
 		return (status);
 	}
-	status = 0;
 	if ((pid = fork()) < 0)
 		return (-1);
 	if (pid == 0)
 		status = execve(command->bin, command->av, command->env);
 	else
+	{
+		running_pid = pid;
 		waitpid(pid, &status, 0);
+		running_pid = 0;
+	}
 	return (status);
 }

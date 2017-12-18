@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:51:45 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 15:09:20 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 09:15:12 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MSH_H
 
 # include "libft.h"
+# include <signal.h>
 # include <sys/stat.h>
 # include <unistd.h>
 
@@ -26,6 +27,13 @@ typedef struct		s_command {
 t_command			**parse_commands(const char *str);
 t_command			*parse_command(const char *str);
 void				shell_loop(void);
+void				put_shell_prompt(void);
+
+/*
+** PROCESS
+*/
+int					running_pid;
+void				sigint_handler(int sig);
 
 /*
 ** COMMAND
@@ -39,7 +47,7 @@ void				free_command(t_command **cmd);
 */
 char				*parse_ident(const char *str, size_t *idx);
 char				**parse_envs(const char *str, size_t *idx);
-char				*parse_cmd(const char *str, size_t *idx);
+char				*parse_cmd_str(const char *str, size_t *idx);
 char				**parse_args(const char *str, size_t *idx);
 
 /*
