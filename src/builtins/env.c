@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 13:29:48 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 15:59:19 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 13:44:37 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void			print_env(char **envp)
 	idx = 0;
 	while (envp[idx])
 	{
-		if (envp[idx][0] == '?' || envp[idx][0] == 0)
+		if (envp[idx][0] == '?' || envp[idx][0] == '0' || envp[idx][0] == 0)
 		{
 			idx++;
 			continue ;
@@ -47,7 +47,7 @@ int				builtin_env(int ac, char **av, char **envp)
 	(void)envp;
 	if (ac == 1)
 	{
-		print_env(environ);
+		print_env(*ft_env_load());
 		return (0);
 	}
 	cmd_str = ft_strtab_join_sep((av + 1), ' ');

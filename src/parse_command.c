@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 09:06:34 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 09:14:22 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 13:39:00 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_command		*parse_command(const char *str)
 	idx = 0;
 	while (ft_iswhitespace(str[idx]))
 		idx++;
-	cmd->env = ft_env_init((const char **)environ);
+	cmd->env = ft_env_init(*ft_env_load());
 	tmp = parse_envs(str, &idx);
 	while (tmp && *tmp)
 	{

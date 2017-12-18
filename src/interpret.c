@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:57:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 10:06:25 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 13:39:12 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ int			interpret(t_command *command)
 		status = execve(command->bin, command->av, command->env);
 	else
 	{
-		running_pid = pid;
+		g_running_pid = pid;
 		waitpid(pid, &status, 0);
-		running_pid = 0;
+		g_running_pid = 0;
 	}
 	return (status);
 }

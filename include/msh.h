@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:51:45 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 12:00:03 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 14:30:18 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void				put_shell_prompt(void);
 /*
 ** PROCESS
 */
-int					running_pid;
+int					g_running_pid;
 void				sigint_handler(int sig);
 
 /*
@@ -54,8 +54,8 @@ char				**parse_args(const char *str, size_t *idx);
 /*
 ** ENV
 */
-extern char			**environ;
 void				print_env(char **envp);
+char				*extract_env(char *str);
 
 /*
 ** BUILTINS

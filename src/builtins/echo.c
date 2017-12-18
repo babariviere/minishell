@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 14:24:41 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 09:55:38 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 14:29:35 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void		echo_str(char *str)
 	ft_putchar('\n');
 }
 
-static char		*extract_env(char *str)
+char		*extract_env(char *str)
 {
 	size_t		idx;
 
@@ -75,7 +75,7 @@ int				builtin_echo(int ac, char **av, char **envp)
 	while ((tmp = ft_strchr_esc(res, '$')))
 	{
 		tmp = extract_env(tmp);
-		env = ft_env_get(environ, tmp + 1);
+		env = ft_env_get(*ft_env_load(), tmp + 1);
 		if (env == 0)
 		{
 			ft_putendl2_fd(tmp + 1, ": environment variable not found", 2);

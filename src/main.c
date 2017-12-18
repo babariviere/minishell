@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:51:31 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 09:58:49 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 13:37:18 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 int		main(int ac, char **av)
 {
+	char	***env;
+
 	(void)ac;
 	(void)av;
-	environ = ft_env_init((const char **)environ);
-	ft_env_set(&environ, "0", "minishell", 1);
+	env = ft_env_load();
+	*env = ft_env_init(*env);
+	ft_env_set(env, "0", "minishell", 1);
 	signal(SIGINT, sigint_handler);
 	shell_loop();
-	ft_tabdel((void ***)&environ, sizeof(char *));
+	ft_tabdel((void ***)env, sizeof(char *));
 	return (0);
 }

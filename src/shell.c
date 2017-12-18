@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:02:00 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 12:01:10 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 13:38:42 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	interpret_cmd(t_command **cmds, size_t cmd_idx)
 	}
 	res = interpret(cmds[cmd_idx]);
 	res_str = ft_itoa(res);
-	ft_env_set(&environ, "?", res_str, 1);
+	ft_env_set(ft_env_load(), "?", res_str, 1);
 	free(res_str);
 	free_command(cmds + cmd_idx);
 }
@@ -57,7 +57,7 @@ void		put_shell_prompt(void)
 	char	cwd[MAXPATHLEN];
 	size_t	len;
 
-	home = ft_env_get(environ, "HOME");
+	home = ft_env_get(*ft_env_load(), "HOME");
 	if (home)
 	{
 		getcwd(cwd, MAXPATHLEN);
@@ -75,16 +75,18 @@ void		put_shell_prompt(void)
 
 void		shell_loop(void)
 {
+	char		***env;
 	t_command	**cmds;
 	char		*line;
 	size_t		idx;
 
+	env = ft_env_load();
 	while (1)
 	{
 		idx = 0;
 		put_shell_prompt();
 		if (ft_gnl(0, &line) <= 0)
-			exit(builtin_exit(1, (char *[]){(char *)"exit"}, environ));
+			exit(builtin_exit(1, (char *[]){(char *)"exit"}, *env));
 		cmds = parse_commands(line);
 		free(line);
 		interpret_cmds(cmds);

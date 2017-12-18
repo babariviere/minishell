@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 14:48:57 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 12:47:38 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 13:39:59 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ int		builtin_exit(int ac, char **av, char **envp)
 		return (1);
 	}
 	ft_putendl("exit");
-	ft_tabdel((void ***)&environ, sizeof(char *));
+	ft_tabdel((void ***)ft_env_load(), sizeof(char *));
 	return (ex);
 }
