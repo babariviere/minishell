@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:51:45 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 09:15:12 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 12:00:03 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include <signal.h>
+# include <sys/param.h>
 # include <sys/stat.h>
 # include <unistd.h>
 

@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:02:00 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 09:16:51 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 12:01:10 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,23 @@ static void	interpret_cmds(t_command **cmds)
 
 void		put_shell_prompt(void)
 {
+	char	*home;
+	char	cwd[MAXPATHLEN];
+	size_t	len;
+
+	home = ft_env_get(environ, "HOME");
+	if (home)
+	{
+		getcwd(cwd, MAXPATHLEN);
+		len = ft_strlen(home);
+		if (ft_strncmp(home, cwd, len) == 0)
+		{
+			cwd[0] = '~';
+			ft_strcpy(cwd + 1, cwd + len);
+		}
+		ft_putstr(cwd);
+		ft_putchar(' ');
+	}
 	ft_putstr("> ");
 }
 
