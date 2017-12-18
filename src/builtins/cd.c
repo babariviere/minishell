@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:00:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 09:57:33 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 15:18:31 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,21 @@ static char	*get_path(char *arg, char **envp)
 {
 	char	*path;
 	char	*home;
+	char	*tmp;
 
+	path = substitute_env(arg);
+	if (path == 0)
+		return (0);
 	if (arg[0] == '~')
 	{
 		home = get_home(envp);
 		if (!home)
 			return (0);
+		tmp = path;
 		path = ft_strjoin(home, arg + 1);
+		free(tmp);
 		free(home);
 	}
-	else
-		path = ft_strdup(arg);
 	return (path);
 }
 

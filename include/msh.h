@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:51:45 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 14:30:18 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 15:17:13 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char				**parse_args(const char *str, size_t *idx);
 */
 void				print_env(char **envp);
 char				*extract_env(char *str);
+char				*substitute_env(char *str);
 
 /*
 ** BUILTINS
