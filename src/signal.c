@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 08:56:39 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 09:17:26 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 09:40:06 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	sigint_handler(int sig)
 {
 	(void)sig;
-	ft_putchar('\r');
 	if (running_pid == 0)
 	{
+		ft_putchar('\r');
 		put_shell_prompt();
 		ft_putstr("  \n");
 		put_shell_prompt();
@@ -25,5 +25,6 @@ void	sigint_handler(int sig)
 		return ;
 	}
 	kill(running_pid, SIGINT);
+	ft_putchar('\n');
 	running_pid = 0;
 }

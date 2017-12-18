@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:57:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 08:56:18 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 09:56:34 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,15 @@ static int	check_err(t_command *command)
 		return (0);
 	if (command->bin == 0)
 	{
-		ft_putstr("command not found: ");
-		ft_putendl(command->av[0]);
+		ft_putendl2_fd("command not found: ", command->av[0], 2);
 		return (127);
 	}
-	if (get_builtin(command->bin) > 0)
+	if (get_builtin(command->bin) >= 0)
 		return (0);
 	stat(command->bin, &st);
 	if (has_perm(st) == 0)
 	{
-		ft_putstr(command->bin);
-		ft_putendl(": permission denied");
+		ft_putendl2_fd(command->bin, ": permission denied", 2);
 		return (126);
 	}
 	return (0);

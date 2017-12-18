@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:00:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 11:21:03 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/18 09:57:33 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,12 @@ static int	check_err(char *path)
 
 	if (stat(path, &st) != 0)
 	{
-		ft_putstr("cd: no such file or directory: ");
-		ft_putendl(path);
+		ft_putendl2_fd("cd: no such file or directory: ", path, 2);
 		return (0);
 	}
 	if ((st.st_mode & S_IFDIR) == 0)
 	{
-		ft_putstr("cd: ");
-		ft_putstr(path);
-		ft_putendl(": not a directory");
+		ft_putendl3("cd: ", path, ": not a directory");
 		return (0);
 	}
 	return (1);
@@ -74,7 +71,7 @@ int			builtin_cd(int ac, char **av, char **envp)
 		path = get_path(av[1], envp);
 	else
 	{
-		ft_putendl("cd: too many arguments");
+		ft_putendl_fd("cd: too many arguments", 2);
 		return (1);
 	}
 	if (!check_err(path))
