@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 14:24:41 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 15:16:53 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/19 10:08:29 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static void		echo_str(char *str)
 	write(1, str + beg, end - beg);
 	ft_putchar('\n');
 }
-
 
 int				builtin_echo(int ac, char **av, char **envp)
 {

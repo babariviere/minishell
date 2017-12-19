@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 15:16:38 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 15:16:58 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/19 10:08:22 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char		*substitute_env(char *str)
 	char	*tmp2;
 	char	*res;
 	char	*env;
-	
+
 	res = ft_strdup(str);
 	while ((tmp = ft_strchr_esc(res, '$')))
 	{
