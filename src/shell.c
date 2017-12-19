@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:02:00 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/19 08:58:01 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/19 09:40:20 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void		put_shell_prompt(void)
 		}
 		ft_putstr(cwd);
 		ft_putchar(' ');
-		free(home);
 	}
 	ft_putstr("> ");
 }
