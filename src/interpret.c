@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:57:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 13:39:12 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/19 11:25:11 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	check_err(t_command *command)
 	struct stat	st;
 	int			res;
 
-	if (command == 0)
+	if (command == 0 || command->av == 0)
 		return (0);
 	if (command->bin == 0)
 	{

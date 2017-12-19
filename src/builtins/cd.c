@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:00:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/19 09:45:23 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/19 11:18:03 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ static char	*get_path(char *arg, char **envp)
 	char	*home;
 	char	*tmp;
 
+	if (arg[0] == '-' && arg[1] == 0)
+		return(ft_strdup(ft_env_get(*ft_env_load(), "OLDPWD")));
 	path = substitute_env(arg);
 	if (path == 0)
 		return (0);
-	if (arg[0] == '~')
+	else if (arg[0] == '~')
 	{
 		home = get_home(envp);
 		if (!home)
@@ -66,6 +68,7 @@ static char	*get_path(char *arg, char **envp)
 int			builtin_cd(int ac, char **av, char **envp)
 {
 	char	*path;
+	char	*oldpwd;
 	int		res;
 
 	if (ac == 1)
@@ -82,6 +85,9 @@ int			builtin_cd(int ac, char **av, char **envp)
 	res = 1;
 	if (path)
 	{
+		oldpwd = getcwd(0, 0);
+		ft_env_set(ft_env_load(), "OLDPWD", oldpwd, 1);
+		free(oldpwd);
 		res = chdir(path);
 		free(path);
 	}
