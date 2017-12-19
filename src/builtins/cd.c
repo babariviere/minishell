@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:00:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 15:18:31 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/19 09:45:23 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static char	*get_path(char *arg, char **envp)
 		tmp = path;
 		path = ft_strjoin(home, arg + 1);
 		free(tmp);
-		free(home);
 	}
 	return (path);
 }
@@ -70,7 +69,7 @@ int			builtin_cd(int ac, char **av, char **envp)
 	int		res;
 
 	if (ac == 1)
-		path = get_home(envp);
+		path = ft_strdup(get_home(envp));
 	else if (ac == 2)
 		path = get_path(av[1], envp);
 	else
