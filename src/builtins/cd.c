@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:00:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/19 11:18:03 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/21 09:34:45 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int			builtin_cd(int ac, char **av, char **envp)
 	if (path)
 	{
 		oldpwd = getcwd(0, 0);
-		ft_env_set(ft_env_load(), "OLDPWD", oldpwd, 1);
+		ft_env_set(ft_env_load(), "OLDPWD", oldpwd);
 		free(oldpwd);
 		res = chdir(path);
 		free(path);

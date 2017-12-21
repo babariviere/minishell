@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:02:00 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/19 09:40:20 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/21 09:34:09 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	interpret_cmd(t_command **cmds, size_t cmd_idx)
 	}
 	res = interpret(cmds[cmd_idx]);
 	res_str = ft_itoa(res);
-	ft_env_set(ft_env_load(), "?", res_str, 1);
+	ft_env_set(ft_env_load(), "?", res_str);
 	free(res_str);
 	free_command(cmds + cmd_idx);
 }
