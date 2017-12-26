@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:00:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/21 09:34:45 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/26 09:16:05 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static char	*get_path(char *arg, char **envp)
 	char	*tmp;
 
 	if (arg[0] == '-' && arg[1] == 0)
-		return(ft_strdup(ft_env_get(*ft_env_load(), "OLDPWD")));
-	path = substitute_env(arg);
+		return (ft_strdup(ft_env_get(*ft_env_load(), "OLDPWD")));
+	path = ft_strdup(arg);
 	if (path == 0)
 		return (0);
 	else if (arg[0] == '~')

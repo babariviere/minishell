@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:02:00 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/21 09:34:09 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/26 09:00:37 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,26 @@ void		put_shell_prompt(void)
 	ft_putstr("> ");
 }
 
+static void	shell_loop_sub(char *line)
+{
+	char		*tmp;
+	t_command	**cmds;
+
+	tmp = line;
+	line = substitute_env(tmp);
+	free(tmp);
+	if (line == 0)
+		return ;
+	cmds = parse_commands(line);
+	free(line);
+	interpret_cmds(cmds);
+	free(cmds);
+	cmds = 0;
+}
+
 void		shell_loop(void)
 {
 	char		***env;
-	t_command	**cmds;
 	char		*line;
 	size_t		idx;
 
@@ -87,10 +103,8 @@ void		shell_loop(void)
 		put_shell_prompt();
 		if (ft_gnl(0, &line) <= 0)
 			exit(builtin_exit(1, (char *[]){(char *)"exit"}, *env));
-		cmds = parse_commands(line);
-		free(line);
-		interpret_cmds(cmds);
-		free(cmds);
-		cmds = 0;
+		if (line == 0)
+			break ;
+		shell_loop_sub(line);
 	}
 }

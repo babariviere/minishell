@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 16:58:20 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/15 13:15:18 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/26 09:33:19 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static char	*parse_ident_sub(const char *str, size_t *idx)
 	char	*tmp;
 	char	*tmp_semi;
 
+	while (str[*idx] && ft_iswhitespace(str[*idx]))
+		(*idx)++;
 	if (str[*idx] == '\'' || str[*idx] == '\"')
 	{
 		tmp = ft_strchr_esc(str + (*idx + 1), str[*idx]);
@@ -24,7 +26,11 @@ static char	*parse_ident_sub(const char *str, size_t *idx)
 	}
 	else
 	{
-		tmp = ft_strchr_esc(str + (*idx), ' ');
+		tmp = (char *)(str + (*idx));
+		while (*tmp && !ft_iswhitespace(*tmp))
+			tmp++;
+		if (*tmp == 0)
+			tmp = 0;
 		tmp_semi = ft_strchr(str + (*idx), ';');
 		if (tmp_semi && tmp_semi < tmp)
 			tmp = tmp_semi;

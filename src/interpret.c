@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 16:57:17 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/19 11:25:11 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/26 09:40:50 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	has_perm(struct stat st)
 {
-	return ((st.st_mode & S_IXUSR) || (st.st_mode & S_IXGRP) ||
-			(st.st_mode & S_IXOTH));
+	return (((st.st_mode & S_IXUSR) || (st.st_mode & S_IXGRP) ||
+			(st.st_mode & S_IXOTH)) && ((st.st_mode & S_IFREG) == S_IFREG));
 }
 
 static int	check_err(t_command *command)

@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 10:34:30 by briviere          #+#    #+#             */
-/*   Updated: 2017/12/18 09:14:10 by briviere         ###   ########.fr       */
+/*   Updated: 2017/12/26 09:33:38 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ char	**parse_envs(const char *str, size_t *idx)
 		res[sidx] = tmp;
 		res[sidx + 1] = 0;
 		tmp = 0;
-		while (str[*idx] && ft_iswhitespace(str[*idx]))
-			*idx += 1;
 		size += sizeof(char *);
 		sidx++;
 	}
@@ -60,11 +58,7 @@ char	*parse_cmd_str(const char *str, size_t *idx)
 {
 	char	*res;
 
-	while (str[*idx] && ft_iswhitespace(str[*idx]))
-		*idx += 1;
 	res = parse_ident(str, idx);
-	while (str[*idx] && ft_iswhitespace(str[*idx]))
-		*idx += 1;
 	return (res);
 }
 
@@ -84,8 +78,6 @@ char	**parse_args(const char *str, size_t *idx)
 		res[sidx] = tmp;
 		res[sidx + 1] = 0;
 		tmp = 0;
-		while (str[*idx] && ft_iswhitespace(str[*idx]))
-			*idx += 1;
 		size += sizeof(char *);
 		sidx++;
 	}
